@@ -5,7 +5,7 @@
  - 하단의 터미널(terminal) 탭을 클릭
  - 터미널에 아래 복제 프롬프트 입력
 ```
-git clone https://github.com/saskorea/sas-viya-workbench-hands-on.git
+git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-on.git
 ```
 
 ## **2. 사용 가이드**
