@@ -79,6 +79,7 @@ proc freq data = &target_table.;
     label &target_nm. = 'Target';
 run;
 
+/* 3.3. 임시 데이터 삭제 */
 proc datasets lib = work nolist;
     delete _sos_temp_0:;
 run;quit;
