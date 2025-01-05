@@ -40,9 +40,18 @@ proc sql;
 quit;
 
 
-%let requiredDataSize = %sysfunc();
+%let requiredDataSize = %sysevalf( ( &majorityClassSize/(1-&targetResponse.) ) - &totalSampleNumber. );
+%put NOTE: &=requiredDataSize.;
 
 data _sos_temp_02_;
     set &source_table.;
-    where &target_nm. = "&class2.";
+    if &target_nm. = "&class2.";
+run;
+
+proc surveyselect data     = _sos_temp_02_
+                  out      = _sos_temp_03_
+                  method   = urs
+                  sampsize = &requiredDataSize.
+                  seed     = &randomSeed.
+                  ;
 run;
