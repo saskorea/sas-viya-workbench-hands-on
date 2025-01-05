@@ -30,12 +30,17 @@ run;
 
 proc sql;
     select &target_nm.
-         , max(count)-min(count) as gap
+         , max(count) as majorityClassSize
+         , sum(count) as totalSampleNumber
       into:class1-
-         ,:gap
+         ,:majorityClassSize
+         ,:totalSampleNumber
       from _sos_temp_01_
     ;
 quit;
+
+
+%let requiredDataSize = %sysfunc();
 
 data _sos_temp_02_;
     set &source_table.;
