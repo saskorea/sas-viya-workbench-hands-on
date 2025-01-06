@@ -25,9 +25,19 @@ proc format;
 run;
 
 /* 1.3. 메타 정보 추출 */
-proc print data = WRKLIB.HRD_META noobs; run;
+%let IC_VARS =; 
+%let IN_VARS =; 
+%let TC_VARS =;
+proc sql noprint;
+    select variable into :IC_VARS separated by ' ' from WRKLIB.HRD_META where role = 'input' and type = 'char'; /* 문자형 입력 변수 */
+    select variable into :IN_VARS separated by ' ' from WRKLIB.HRD_META where role = 'input' and type = 'num';  /* 숫자형 입력 변수 */
+    select variable into :TC_VARS separated by ' ' from WRKLIB.HRD_META where role = 'target';                  /* 타겟 변수 */
+quit;
+%put NOTE: &=IC_VARS &=IN_VARS &=TC_VARS;
 
 
 /*****************************************************************************************
-** 2. 사전 작업
+** 2. 모형 적합
 ******************************************************************************************/
+
+proc 
