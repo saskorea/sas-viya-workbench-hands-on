@@ -11,12 +11,11 @@ libname WRKLIB "sas-viya-workbench-hands-on/02. SAS 데이터";
 /* 1.2. 포맷 정의 */
 proc format cntlin = WRKLIB.hrd_code; run;
 
-
 /*****************************************************************************************
 * 2. 변수 변환(결측 및 이상치 처리)
 ******************************************************************************************/
 /* 2.1. 연속형 변수 범주화 - TREE BINNING */
-proc binning data   = WRKLIB.hrd_data_parted(where = (_partind_ = 0))
+proc binning data   = WRKLIB.hrd_data_parted
              method = tree (
                            minnbins = 2 
                            maxnbins = 20
@@ -46,7 +45,7 @@ run;
 
 /* 2.2. 범주형 변수 그룹화 */
 /* 2.2.1. 변수별 범주별 분포 확인 */
-proc freq data=WRKLIB.hrd_data_parted(where = (_partind_ = 0)) nlevels;
+proc freq data=WRKLIB.hrd_data_parted nlevels;
     tables _character_;
 run;
 /* 2.2.2. 범주가 10개 이상일 때(TREE BINNING) : 
@@ -54,7 +53,7 @@ run;
           POSIT_CD(직위코드)
           MNGR_ID(관리자고유번호) 
 */
-proc cattransform data = WRKLIB.hrd_data_parted(where = (_partind_ = 0))
+proc cattransform data = WRKLIB.hrd_data_parted
         binmissing 
         /* prefix="CAT_"  */
         evaluationstats
@@ -84,7 +83,7 @@ run;
           RCRT_CD (취업경로코드)
           그룹화 X : SEX(성별) KPI_CD(핵심성과코드)
 */
-proc cattransform data = WRKLIB.hrd_data_parted (where = (_partind_ = 0))
+proc cattransform data = WRKLIB.hrd_data_parted
         binmissing 
         /* prefix="CAT_"  */
         evaluationstats
