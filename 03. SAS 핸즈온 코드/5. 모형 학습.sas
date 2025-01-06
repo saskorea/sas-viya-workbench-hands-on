@@ -47,6 +47,8 @@ proc treesplit data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    output out = WRKLIB.HRD_DATA_DTR
+        copyvars = (_ALL_);
 run;
 
 /* 2) 랜덤포레스트(viya) */
@@ -55,6 +57,8 @@ proc forest data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    output out = WRKLIB.HRD_DATA_RFM
+        copyvars = (_ALL_);
 run;
 
 /* 3) 그레디언트부스팅(viya) */
@@ -63,23 +67,35 @@ proc gradboost data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    output out = WRKLIB.HRD_DATA_GBM
+        copyvars = (_ALL_);
 run;
 
 /* 4) 라이트GBM(viya) */
-data learn_data
+data train_data
      valid_data;
     set WRKLIB.HRD_DATA_PARTED;
     select (_PartInd_);
+        when ('0') output train_data;
         when ('1') output valid_data;
-        otherwise output learn_data;
+        otherwise;
     end;
 run;
-proc lightgradboost data      = learn_data
+proc lightgradboost data      = train_data
                     validData = valid_data
     ;
     input  &IN_VARS / level = interval;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
+    saveState rstore = WRKLIB.HRD_DATA_LGB_MODEL;  /* 스코어링 테이블 */
+run;
+proc astore;
+    score 
+        rstore   = WRKLIB.HRD_DATA_LGB_MODEL
+        data     = WRKLIB.HRD_DATA_PARTED
+        out      = WRKLIB.HRD_DATA_LGB
+        copyVars = ( _ALL_ )
+    ;
 run;
 
 
@@ -87,6 +103,31 @@ run;
 proc logselect data = WRKLIB.HRD_DATA_PARTED;
     class &IC_VARS &TC_VARS;
     model &TC_VARS = &IN_VARS &IC_VARS / noint;
-    selection method=forward details=all plots=all;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    selection method = stepwise;
+    output 
+        out      = _temp_pred_log_
+        copyVars = ( _ALL_ )
+    ;
+run;
+data WRKLIB.HRD_DATA_LOG;
+    set _temp_pred_log_;
+    p_&TC_VARS.1 = _pred_;
+    p_&TC_VARS.0 = 1- _pred_;
+    drop _pred_;
+run;
+
+
+/* 2.3. SVM 모형 */
+proc svmachine data   = WRKLIB.HRD_DATA_PARTED;
+
+    input  &IN_VARS / level = interval;
+    input  &IC_VARS / level = nominal;
+    target &TC_VARS / level = nominal;
+    partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    
+    output 
+        out = WRKLIB.HRD_DATA_SVM
+        copyVars = ( _ALL_ )
+    ;
 run;
