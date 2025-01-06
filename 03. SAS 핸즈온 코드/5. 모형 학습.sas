@@ -39,7 +39,6 @@ quit;
 /*****************************************************************************************
 ** 2. 모형 적합
 ******************************************************************************************/
-
 /* 2.1. 트리기반 모형 */
 /* 1) 의사결정나무(viya) */
 proc treesplit data = WRKLIB.HRD_DATA_PARTED;
@@ -47,6 +46,7 @@ proc treesplit data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_DTR
         copyvars = (_ALL_);
 run;
@@ -57,6 +57,7 @@ proc forest data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_RFM
         copyvars = (_ALL_);
 run;
@@ -67,6 +68,7 @@ proc gradboost data = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+    format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_GBM
         copyvars = (_ALL_);
 run;
@@ -75,6 +77,7 @@ run;
 data train_data
      valid_data;
     set WRKLIB.HRD_DATA_PARTED;
+    format &TC_VARS best8.;
     select (_PartInd_);
         when ('0') output train_data;
         when ('1') output valid_data;
@@ -105,6 +108,7 @@ proc logselect data = WRKLIB.HRD_DATA_PARTED;
     model &TC_VARS = &IN_VARS &IC_VARS / noint;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
     selection method = stepwise;
+    format &TC_VARS best8.;
     output 
         out      = _temp_pred_log_
         copyVars = ( _ALL_ )
@@ -125,7 +129,7 @@ proc svmachine data   = WRKLIB.HRD_DATA_PARTED;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
-    
+    format &TC_VARS best8.;
     output 
         out = WRKLIB.HRD_DATA_SVM
         copyVars = ( _ALL_ )
