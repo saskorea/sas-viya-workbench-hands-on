@@ -23,10 +23,10 @@ git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-o
 
 ## **3. 관련 코드 자료들**
 
-- [실습 데이터](https://github.com/Hannoah/sas-viya-workbench-kor-handsOn/tree/main/01.%20RAW%20%EB%8D%B0%EC%9D%B4%ED%84%B0)
-- [SAS 프로그램](https://github.com/Hannoah/myFirstGithub/tree/main/SAS%20Code)
-- [Python 프로그램](https://github.com/Hannoah/myFirstGithub/tree/main/Python%20Code)
-- [Hands-on 관련 자료](https://github.com/Hannoah/myFirstGithub/tree/main/Hands-on%20Materials)
+- [실습 데이터](https://github.com/saskorea/sas-viya-workbench-hands-on/tree/main/01.%20RAW%20%EB%8D%B0%EC%9D%B4%ED%84%B0)
+- [SAS 핸즈온 코드](https://github.com/saskorea/sas-viya-workbench-hands-on/tree/main/03.%20SAS%20%ED%95%B8%EC%A6%88%EC%98%A8%20%EC%BD%94%EB%93%9C)
+- [Python 핸즈온 코드](https://github.com/saskorea/sas-viya-workbench-hands-on/tree/main/04.%20Python%20%ED%95%B8%EC%A6%88%EC%98%A8%20%EC%BD%94%EB%93%9C)
+- [기타 참고 코드](https://github.com/saskorea/sas-viya-workbench-hands-on/tree/main/00.%20%EC%B0%B8%EA%B3%A0%20%EC%BD%94%EB%93%9C)
 
 
 
