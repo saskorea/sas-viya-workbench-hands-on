@@ -1,6 +1,6 @@
 # **SAS Viya Workbench: Hands-on Session (KOR)**
 
-## **1. Github Repository 복제**
+## **1. GitHub Repository 복제**
  - SAS Viya Workbench에 Workbench를 생성
  - 하단의 터미널(terminal) 탭을 클릭
  - 터미널에 아래 복제 프롬프트 입력

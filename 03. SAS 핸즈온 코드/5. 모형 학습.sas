@@ -48,7 +48,7 @@ proc treesplit data = WRKLIB.HRD_DATA_PARTED;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
     format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_DTR
-        copyvars = (_ALL_);
+        copyvars = ( EMP_ID &TC_VARS. _PartInd_ );
 run;
 
 /* 2) 랜덤포레스트(viya) */
@@ -59,7 +59,7 @@ proc forest data = WRKLIB.HRD_DATA_PARTED;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
     format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_RFM
-        copyvars = (_ALL_);
+        copyvars = ( EMP_ID &TC_VARS. _PartInd_ );
 run;
 
 /* 3) 그레디언트부스팅(viya) */
@@ -70,7 +70,7 @@ proc gradboost data = WRKLIB.HRD_DATA_PARTED;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
     format &TC_VARS best8.;
     output out = WRKLIB.HRD_DATA_GBM
-        copyvars = (_ALL_);
+        copyvars = ( EMP_ID &TC_VARS. _PartInd_ );
 run;
 
 /* 4) 라이트GBM(viya) */
@@ -97,7 +97,7 @@ proc astore;
         rstore   = WRKLIB.HRD_DATA_LGB_MODEL
         data     = WRKLIB.HRD_DATA_PARTED
         out      = WRKLIB.HRD_DATA_LGB
-        copyVars = ( _ALL_ )
+        copyVars = (  EMP_ID &TC_VARS. _PartInd_ )
     ;
 run;
 
@@ -111,7 +111,7 @@ proc logselect data = WRKLIB.HRD_DATA_PARTED;
     format &TC_VARS best8.;
     output 
         out      = _temp_pred_log_
-        copyVars = ( _ALL_ )
+        copyVars = (  EMP_ID &TC_VARS. _PartInd_ )
     ;
 run;
 data WRKLIB.HRD_DATA_LOG;
@@ -132,6 +132,6 @@ proc svmachine data   = WRKLIB.HRD_DATA_PARTED;
     format &TC_VARS best8.;
     output 
         out = WRKLIB.HRD_DATA_SVM
-        copyVars = ( _ALL_ )
+        copyVars = (  EMP_ID &TC_VARS. _PartInd_  )
     ;
 run;
