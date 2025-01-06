@@ -102,7 +102,7 @@ data WRKLIB.all_liftinfo;
 run;
 ods graphics on / width=8in height=6in;
 proc sgplot data=WRKLIB.all_liftinfo; 
-  title "Lift Chart (using validation data)";
+  title "Lift Chart";
   yaxis label=' ' grid;
   series x=depth y=CumLift / group=model markers markerattrs=(symbol=circlefilled);
 run;
