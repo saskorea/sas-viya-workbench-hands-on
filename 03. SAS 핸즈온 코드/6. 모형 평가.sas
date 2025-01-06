@@ -28,7 +28,7 @@ quit;
 ** 2. 평가 지표 생성
 ******************************************************************************************/
 %macro assess_model(prefix=, var_evt=, var_nevt=);
-proc assess data=WRKLIB.&prefix. (where = (_Partind_ = 2));
+proc assess data=WRKLIB.&prefix. (where = (_Partind_ = 1));
     input &var_evt.;
     target &TC_VARS / level=nominal event='1';
     fitstat pvar=&var_nevt. / pevent='0';
@@ -43,7 +43,6 @@ run;
 
 ods exclude all;
 %assess_model(prefix=HRD_DATA_DTR,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
-%assess_model(prefix=HRD_DATA_LGB,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_LOG,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_RFM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_SVM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
