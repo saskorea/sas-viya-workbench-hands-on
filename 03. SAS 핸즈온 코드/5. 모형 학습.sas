@@ -40,4 +40,44 @@ quit;
 ** 2. 모형 적합
 ******************************************************************************************/
 
-proc 
+/* 2.1. 트리기반 모형 */
+/* 1) 의사결정나무(viya) */
+proc treesplit data = WRKLIB.HRD_DATA_PARTED;
+    input  &IN_VARS / level = interval;
+    input  &IC_VARS / level = nominal;
+    target &TC_VARS / level = nominal;
+    partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+run;
+
+/* 2) 랜덤포레스트(viya) */
+proc forest data = WRKLIB.HRD_DATA_PARTED;
+    input  &IN_VARS / level = interval;
+    input  &IC_VARS / level = nominal;
+    target &TC_VARS / level = nominal;
+    partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+run;
+
+/* 3) 그레디언트부스팅(viya) */
+proc gradboost data = WRKLIB.HRD_DATA_PARTED;
+    input  &IN_VARS / level = interval;
+    input  &IC_VARS / level = nominal;
+    target &TC_VARS / level = nominal;
+    partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
+run;
+
+/* 4) 라이트GBM(viya) */
+data learn_data;
+    set WRKLIB.HRD_DATA_PARTED;
+    if _PartInd_ = '0' or _PartInd_ = '1';
+run;
+data valid_data;
+    set WRKLIB.HRD_DATA_PARTED;
+    if _PartInd_ = '2';
+run;
+proc lightgradboost data      = learn_data
+                    validData = valid_data
+    ;
+    input  &IN_VARS / level = interval;
+    input  &IC_VARS / level = nominal;
+    target &TC_VARS / level = nominal;
+run;
