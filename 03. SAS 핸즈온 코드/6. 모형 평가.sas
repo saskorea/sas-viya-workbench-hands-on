@@ -47,36 +47,66 @@ ods exclude all;
 %assess_model(prefix=HRD_DATA_RFM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_SVM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_GBM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
+%assess_model(prefix=HRD_DATA_LGB,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 ods exclude none;
 
 
 /*****************************************************************************************
 ** 3. 시각화를 위한 데이터 구성
 ******************************************************************************************/
+/* 3.1. ROC 그래프 */
 data WRKLIB.all_rocinfo;
   set WRKLIB.HRD_DATA_LOG_rocinfo (in=m1)
       WRKLIB.HRD_DATA_RFM_rocinfo (in=m2)
-      WRKLIB.HRD_DATA_LGB_rocinfo (in=m3)
+      WRKLIB.HRD_DATA_GBM_rocinfo (in=m3)
       WRKLIB.HRD_DATA_SVM_rocinfo (in=m4)
-      WRKLIB.HRD_DATA_GBM_rocinfo (in=m5)
-      WRKLIB.HRD_DATA_DTR_rocinfo (in=m6)
+      WRKLIB.HRD_DATA_DTR_rocinfo (in=m5)
+      WRKLIB.HRD_DATA_LGB_rocinfo (in=m6)
   ;
   length model $ 30;
-  if m1 then model = 'Logistic Regression';
-  if m2 then model = 'Random Forest';
-  if m3 then model = 'Light Gradient Boosting';
-  if m4 then model = 'Support Vector Machine';
+  if m1 then model = '로지스틱회귀';
+  if m2 then model = '랜덤포레스트';
+  if m3 then model = '그레디언트부스팅';
+  if m4 then model = '서포트벡터머신';
+  if m5 then model = '의사결정나무';
+  if m6 then model = '라이트GBM';
 run;
+ods graphics on / width=8in height=6in;
+proc sgplot data=WRKLIB.all_rocinfo aspect=1;
+  title "ROC Curve";
+  xaxis values=(0 to 1 by 0.25) grid offsetmin=.05 offsetmax=.05; 
+  yaxis values=(0 to 1 by 0.25) grid offsetmin=.05 offsetmax=.05;
+  lineparm x=0 y=0 slope=1 / transparency=.7;
+  series x=fpr y=sensitivity / group=model;
+run;
+title;
+ods graphics off;
 
-data dmlib.all_liftinfo;
-  set dmlib.hmeq_log_liftinfo (in=m1)
-      dmlib.hmeq_rfm_liftinfo (in=m2)
-      dmlib.hmeq_lgb_liftinfo (in=m3)
-      dmlib.hmeq_svm_liftinfo (in=m4)
+
+/* 3.2. 향상도 그래프 */
+data WRKLIB.all_liftinfo;
+  set WRKLIB.HRD_DATA_LOG_liftinfo (in=m1)
+      WRKLIB.HRD_DATA_RFM_liftinfo (in=m2)
+      WRKLIB.HRD_DATA_GBM_liftinfo (in=m3)
+      WRKLIB.HRD_DATA_SVM_liftinfo (in=m4)
+      WRKLIB.HRD_DATA_DTR_liftinfo (in=m5)
+      WRKLIB.HRD_DATA_LGB_liftinfo (in=m6)
   ;
   length model $ 30;
-  if m1 then model = 'Logistic Regression';
-  if m2 then model = 'Random Forest';
-  if m3 then model = 'Light Gradient Boosting';
-  if m4 then model = 'Support Vector Machine';
+  if m1 then model = '로지스틱회귀';
+  if m2 then model = '랜덤포레스트';
+  if m3 then model = '그레디언트부스팅';
+  if m4 then model = '서포트벡터머신';
+  if m5 then model = '의사결정나무';
+  if m6 then model = '라이트GBM';
 run;
+ods graphics on / width=8in height=6in;
+proc sgplot data=WRKLIB.all_liftinfo; 
+  title "Lift Chart (using validation data)";
+  yaxis label=' ' grid;
+  series x=depth y=CumLift / group=model markers markerattrs=(symbol=circlefilled);
+run;
+title;
+ods graphics off;
+
+

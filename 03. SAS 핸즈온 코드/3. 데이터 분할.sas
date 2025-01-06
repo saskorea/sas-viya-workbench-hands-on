@@ -63,9 +63,6 @@ proc partition data = WRKLIB.hrd_data     /* 입력 데이터 */
         copyvars   = (_all_)                /* 결과 테이블에 포함할 변수 지정 */
         partindname= _PartInd_              /* Partition 변수 이름 */
     ;
-    format 
-        TRMD_YN   TGTFMT.
-    ;
     label 
         TRMD_YN = '퇴사여부'
     ;

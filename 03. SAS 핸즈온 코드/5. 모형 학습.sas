@@ -12,17 +12,6 @@ libname WRKLIB "sas-viya-workbench-hands-on/02. SAS 데이터";
 
 /* 1.2. 사용자 정의 format 할당 */
 proc format cntlin = WRKLIB.hrd_code; run;
-proc format;
-    value ROLFMT
-        0 = '0:학습'
-        1 = '1:평가'
-        2 = '2:검증'
-    ;
-    value TGTFMT
-        0 = '0:근속'
-        1 = '1:퇴사'
-    ;
-run;
 
 /* 1.3. 메타 정보 추출 */
 %let IC_VARS =; 
@@ -96,14 +85,14 @@ proc astore;
     score 
         rstore   = WRKLIB.HRD_DATA_LGB_MODEL
         data     = WRKLIB.HRD_DATA_PARTED
-        out      = WRKLIB.HRD_DATA_LGB
+        out      = WRKLIB.HRD_DATA_LGB        
         copyVars = (  EMP_ID &TC_VARS. _PartInd_ )
     ;
 run;
 
 
 /* 2.2. 회귀 모형 */
-proc logselect data = WRKLIB.HRD_DATA_PARTED;
+proc logselect data = WRKLIB.HRD_DATA_BIN;
     class &IC_VARS &TC_VARS;
     model &TC_VARS = &IN_VARS &IC_VARS / noint;
     partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
@@ -123,8 +112,7 @@ run;
 
 
 /* 2.3. SVM 모형 */
-proc svmachine data   = WRKLIB.HRD_DATA_PARTED;
-
+proc svmachine data   = WRKLIB.HRD_DATA_BIN;
     input  &IN_VARS / level = interval;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
@@ -132,6 +120,6 @@ proc svmachine data   = WRKLIB.HRD_DATA_PARTED;
     format &TC_VARS best8.;
     output 
         out = WRKLIB.HRD_DATA_SVM
-        copyVars = (  EMP_ID &TC_VARS. _PartInd_  )
+        copyVars = ( EMP_ID &TC_VARS. _PartInd_ )
     ;
 run;
