@@ -66,13 +66,13 @@ proc gradboost data = WRKLIB.HRD_DATA_PARTED;
 run;
 
 /* 4) 라이트GBM(viya) */
-data learn_data;
+data learn_data
+     valid_data;
     set WRKLIB.HRD_DATA_PARTED;
-    if _PartInd_ = '0' or _PartInd_ = '1';
-run;
-data valid_data;
-    set WRKLIB.HRD_DATA_PARTED;
-    if _PartInd_ = '2';
+    select (_PartInd_);
+        when ('1') output valid_data;
+        otherwise output learn_data;
+    end;
 run;
 proc lightgradboost data      = learn_data
                     validData = valid_data
@@ -80,4 +80,13 @@ proc lightgradboost data      = learn_data
     input  &IN_VARS / level = interval;
     input  &IC_VARS / level = nominal;
     target &TC_VARS / level = nominal;
+run;
+
+
+/* 2.2. 회귀 모형 */
+proc logselect data = WRKLIB.HRD_DATA_PARTED;
+    class &IC_VARS &TC_VARS;
+    model &TC_VARS = &IN_VARS &IC_VARS / noint;
+    selection method=forward details=all plots=all;
+    partition rolevar = _PartInd_ (train = '0' valid = '1' test = '2');
 run;
