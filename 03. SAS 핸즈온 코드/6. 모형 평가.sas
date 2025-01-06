@@ -48,3 +48,35 @@ ods exclude all;
 %assess_model(prefix=HRD_DATA_SVM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 %assess_model(prefix=HRD_DATA_GBM,  var_evt=p_&TC_VARS.1, var_nevt=p_&TC_VARS.0);
 ods exclude none;
+
+
+/*****************************************************************************************
+** 3. 시각화를 위한 데이터 구성
+******************************************************************************************/
+data WRKLIB.all_rocinfo;
+  set WRKLIB.HRD_DATA_LOG_rocinfo (in=m1)
+      WRKLIB.HRD_DATA_RFM_rocinfo (in=m2)
+      WRKLIB.HRD_DATA_LGB_rocinfo (in=m3)
+      WRKLIB.HRD_DATA_SVM_rocinfo (in=m4)
+      WRKLIB.HRD_DATA_GBM_rocinfo (in=m5)
+      WRKLIB.HRD_DATA_DTR_rocinfo (in=m6)
+  ;
+  length model $ 30;
+  if m1 then model = 'Logistic Regression';
+  if m2 then model = 'Random Forest';
+  if m3 then model = 'Light Gradient Boosting';
+  if m4 then model = 'Support Vector Machine';
+run;
+
+data dmlib.all_liftinfo;
+  set dmlib.hmeq_log_liftinfo (in=m1)
+      dmlib.hmeq_rfm_liftinfo (in=m2)
+      dmlib.hmeq_lgb_liftinfo (in=m3)
+      dmlib.hmeq_svm_liftinfo (in=m4)
+  ;
+  length model $ 30;
+  if m1 then model = 'Logistic Regression';
+  if m2 then model = 'Random Forest';
+  if m3 then model = 'Light Gradient Boosting';
+  if m4 then model = 'Support Vector Machine';
+run;
