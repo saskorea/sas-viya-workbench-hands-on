@@ -10,7 +10,7 @@ git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-o
 
 ## **2. 사용 가이드**
 
-- [일반 사용자를 위한 Trial 환경]()
+- [일반 사용자를 위한 Trial 환경](https://engage-wmt001.workbench.sas.com)
   - 이 환경은 Hands-on Session에 한하여 사용 가합니다.
   - 만약, 이후 추가 사용을 원하신다면, SAS Korea로 따로 문의 주시기 바랍니다.
 - [아카데미 사용자를 위한 Free 환경](https://www.sas.com/en_us/software/viya-workbench-for-learners.html)
