@@ -48,3 +48,37 @@
 	  "description": "PROC ASSESS로 생성한 평가 지표를 활용하여 ROC Chart 그리기"
 	}
 }
+
+/* 수치형 변수 리스트 */
+{
+	"sas.churn.nvars": {
+	  "prefix": "numvars",
+	  "body": [
+         "CallFail"
+        , "SubLength"	
+        , "SecOfUse"	
+        , "FreqOfUse"
+        , "AvgCallDur"
+        , "FreqSMS"     
+        , "DistCallNum" 
+        , "Age"
+        , "CustValue"
+	  ],
+	  "description": "n/a"
+	}
+}
+
+/* 범주형 변수 리스트 */
+{
+	"sas.churn.cvars"": {
+	  "prefix": "charvars",
+	  "body": [
+         "Complains"
+        ,"ChargeAmt"
+        ,"TariffPlan"
+        ,"Status"
+        ,"Churn"
+	  ],
+	  "description": "n/a"
+	}
+}
