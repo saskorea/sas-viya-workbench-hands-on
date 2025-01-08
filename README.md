@@ -13,7 +13,7 @@
 
 
 ## **2. 핸즈온 진행 순서**
-  ### <small> 1) 유용한 Extension 알아보기 </small>
+  ### 1) 유용한 Extension 알아보기
   ### <small> 2) `GitHub` Repository 가져오기 </small>
   ### <small> 3) SAS Notebook 환경 다뤄보기 </small>
   ### <small> 4) SAS 사용자가 SAS Viya Workbench를 활용하는 법 </small>
