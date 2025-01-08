@@ -11,11 +11,16 @@
   - 다만, 아카데미 사용자는 '.ac.kr'과 같이 **아카데미 이메일 주소에 한하여** 가입이 가능합니다.
 <br></br>
 ## **2. 핸즈온 진행 순서**
+- **GitHub** Repository 가져오기
+ - SAS Viya Workbench에 Workbench를 생성
+ - `≡` > `Terminal` > `New Terminal` 선택
+ - 터미널에 아래 복제 프롬프트 입력
+    ```
+    git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-on.git
+    ```
 - 유용한 **Extension** 알아보기
   - `CSV` 파일을 보다 쉽게 보게 하는 `Rainbow CSV`
   - `htm` 파일을 바로 확인할 수 있게 하는 `Live Preview`
-- **GitHub** Repository 가져오기
-  - `clone`으로 GitHub Repository 복사해오기
 - SAS Notebook 환경 다뤄보기
   - SQL, SAS 코드 블록 만들어보기
   - 마크다운으로 코드 설명 추가하기
@@ -28,14 +33,6 @@
   - Python 작업 결과를 SAS 라이브러리에 저장하기
 - 고급 주제
   - 데이터 증강, 상품추천, 설명가능한 AI
-<br></br>
-## **3. GitHub Repository 복제**
- - SAS Viya Workbench에 Workbench를 생성
- - `≡` > `Terminal` > `New Terminal` 선택
- - 터미널에 아래 복제 프롬프트 입력
-    ```
-    git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-on.git
-    ```
 <br></br>
 ## **참고. 관련 문서 및 학습 자료**
 
