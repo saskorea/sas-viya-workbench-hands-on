@@ -12,9 +12,9 @@
 <br></br>
 ## **2. 핸즈온 진행 순서**
 - **GitHub** Repository 가져오기
- - SAS Viya Workbench에 Workbench를 생성
- - `≡` > `Terminal` > `New Terminal` 선택
- - 터미널에 아래 복제 프롬프트 입력
+  - SAS Viya Workbench에 Workbench를 생성
+  - `≡` > `Terminal` > `New Terminal` 선택
+  - 터미널에 아래 복제 프롬프트 입력
     ```
     git -C "$WORKSPACE" clone https://github.com/saskorea/sas-viya-workbench-hands-on.git
     ```
