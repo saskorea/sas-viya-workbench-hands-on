@@ -23,7 +23,7 @@
   - `SASPy`로 SAS 라이브러리 저장된 SAS 데이터 파이썬으로 가져오기
   - `sasviya.ml` 라이브러리를 이용하여, SAS 머신러닝 모형 다루기
   - Python 작업 결과를 SAS 라이브러리에 저장하기
-
+  ### 8) 데이터 증강, 상품추천 등 고급 주제
 
 ## **3. GitHub Repository 복제**
  - SAS Viya Workbench에 Workbench를 생성
