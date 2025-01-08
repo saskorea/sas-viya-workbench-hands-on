@@ -1,1 +1,0 @@
-libname WRKLIB "sas-viya-workbench-hands-on/02. SAS 데이터";
