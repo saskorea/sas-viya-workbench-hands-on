@@ -13,16 +13,16 @@
 
 
 ## **2. 핸즈온 진행 순서**
-### <small> 1) 유용한 Extension 알아보기 </small>
-### <small> 2) `GitHub` Repository 가져오기 </small>
-### <small> 3) SAS Notebook 환경 다뤄보기 </small>
-### <small> 4) SAS 사용자가 SAS Viya Workbench를 활용하는 법 </small>
-### <small> 5) SAS Viya Workbench에 `Snippet` 등록하기 </small>
-### <small> 6) SAS Viya Workbench에서 `autoexec.sas` 파일을 수정하는 법을 알아보기 </small>
-### <small> 7) Python 환경에서 SAS 활용하기 </small>
-  - `SASPy`로 SAS 라이브러리 저장된 SAS 데이터 파이썬으로 가져오기
-  - `sasviya.ml` 라이브러리를 이용하여, SAS 머신러닝 모형 다루기
-  - Python 작업 결과를 SAS 라이브러리에 저장하기
+  ### <small> 1) 유용한 Extension 알아보기 </small>
+  ### <small> 2) `GitHub` Repository 가져오기 </small>
+  ### <small> 3) SAS Notebook 환경 다뤄보기 </small>
+  ### <small> 4) SAS 사용자가 SAS Viya Workbench를 활용하는 법 </small>
+  ### <small> 5) SAS Viya Workbench에 `Snippet` 등록하기 </small>
+  ### <small> 6) SAS Viya Workbench에서 `autoexec.sas` 파일을 수정하는 법을 알아보기 </small>
+  ### <small> 7) Python 환경에서 SAS 활용하기 </small>
+    - `SASPy`로 SAS 라이브러리 저장된 SAS 데이터 파이썬으로 가져오기
+    - `sasviya.ml` 라이브러리를 이용하여, SAS 머신러닝 모형 다루기
+    - Python 작업 결과를 SAS 라이브러리에 저장하기
 
 
 ## **3. GitHub Repository 복제**
