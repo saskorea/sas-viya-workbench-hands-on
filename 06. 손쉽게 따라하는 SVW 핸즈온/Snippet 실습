@@ -54,15 +54,15 @@
 	"sas.churn.nvars": {
 	  "prefix": "numvars",
 	  "body": [
-         "CallFail"
-        , "SubLength"	
-        , "SecOfUse"	
-        , "FreqOfUse"
-        , "AvgCallDur"
-        , "FreqSMS"     
-        , "DistCallNum" 
-        , "Age"
-        , "CustValue"
+			 "CallFail"
+			, "SubLength"	
+			, "SecOfUse"	
+			, "FreqOfUse"
+			, "AvgCallDur"
+			, "FreqSMS"     
+			, "DistCallNum" 
+			, "Age"
+			, "CustValue"
 	  ],
 	  "description": "n/a"
 	}
@@ -73,11 +73,11 @@
 	"sas.churn.cvars"": {
 	  "prefix": "charvars",
 	  "body": [
-         "Complains"
-        ,"ChargeAmt"
-        ,"TariffPlan"
-        ,"Status"
-        ,"Churn"
+			 "Complains"
+			, "ChargeAmt"
+			, "TariffPlan"
+			, "Status"
+			, "Churn"
 	  ],
 	  "description": "n/a"
 	}
