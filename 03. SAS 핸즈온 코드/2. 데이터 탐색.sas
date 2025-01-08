@@ -132,7 +132,7 @@ proc sgscatter data = WRKLIB.HRD_DATA;
            TNR_DD 
            PRJ_CN 
         / group    = TRMD_YN                   /* 각 점을 Target 변수를 기준으로 색상 구분 */
-          diagonal = (histogram kenel normal)  /* 대각선 행렬을 히스토그램으로 */
+          diagonal = (histogram kernel normal)  /* 대각선 행렬을 히스토그램으로 */
         ;
 run;
 
