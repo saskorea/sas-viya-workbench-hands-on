@@ -12,6 +12,8 @@
 <br></br>
 ## **2. 핸즈온 진행 순서**
 - SAS Viya Workbench에 Workbench 접속 및 Workbench 생성
+  - `새로운 저장소`, `Home` 만들기
+  - `Workbench` 만들기
 - **GitHub** Repository 가져오기
   - `≡` > `Terminal` > `New Terminal` 선택
   - 터미널에 아래 복제 프롬프트 입력
