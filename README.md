@@ -11,8 +11,8 @@
   - 다만, 아카데미 사용자는 '.ac.kr'과 같이 **아카데미 이메일 주소에 한하여** 가입이 가능합니다.
 <br></br>
 ## **2. 핸즈온 진행 순서**
+- SAS Viya Workbench에 Workbench 접속 및 Workbench 생성
 - **GitHub** Repository 가져오기
-  - SAS Viya Workbench에 Workbench를 생성
   - `≡` > `Terminal` > `New Terminal` 선택
   - 터미널에 아래 복제 프롬프트 입력
     ```
