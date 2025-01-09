@@ -1,0 +1,43 @@
+{
+	"sas.rocchart": {
+	  "prefix": "sasroc",
+	  "body": [
+			"%LET SOURCE_TABLE = ; /* 입력 데이터 */                             "
+			,"%LET MODEL_TP_VAR = ; /* 모형 구분 변수 */                           "
+			,"%LET PART_VAR     = ; /* 데이터 파티션 변수  */                       "
+			,"                                                                "
+			,"                                                                "
+			,"ODS GRAPHICS ON / WIDTH=8IN HEIGHT=8IN;                         "
+			,"                                                                "
+			,"TITLE 'ROC 그래프';                                               "
+			,"                                                                "
+			,"PROC SGPANEL DATA   =  &SOURCE_TABLE.  /* 입력 데이터 */            "
+			,"             ASPECT = 1  /* 가로와 세로 비율을 1:1로 설정 1로 고정 */      "
+			,"    ;                                                           "
+			,"                                                                "
+			,"    /* 각 분류 모형별 */                                             "
+			,"    PANNELBY &MODEL_TP_VAR. ;                                   "
+			,"                                                                "
+			,"    /* 베이스라인 */                                                "
+			,"    LINEPARM                                                    "          
+			,"        X = 0                /* X 절편 */                         "          
+			,"        Y = 0                /* Y 절편 */                         "          
+			,"        SLOPE = 1            /* 기울기 1  */                      "          
+			,"        / TRANSPARENCY = 0.7 /* 투명도 70%*/                      "          
+			,"    ;                                                           "
+			,"                                                                "
+			,"    /* ROC 그래프 */                                              "
+			,"    SERIES                                                      "
+			,"        X = FPR              /* X축 위양성률(False Positive Rate) */"
+			,"        Y = SENSITIVITY      /* Y축 민감도(Sensitivity) */         "
+			,"        / GROUP = &PART_VAR. /* 데이터 역할 변수명  */                "
+			,"    ;                                                           "
+			,"RUN;                                                            "
+			,"                                                                "
+			,"TITLE;                                                          "
+			,"                                                                "
+			,"ODS GRAPHICS OFF;                                               "
+	  ],
+	  "description": "PROC ASSESS로 생성한 평가 지표를 활용하여 ROC Chart 그리기"
+	}
+}
