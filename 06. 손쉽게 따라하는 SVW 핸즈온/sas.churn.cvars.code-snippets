@@ -1,0 +1,14 @@
+/* 범주형 변수 리스트 */
+{
+	"sas.churn.cvars": {
+	  "prefix": "charvars",
+	  "body": [
+			 "Complains"
+			, "ChargeAmt"
+			, "TariffPlan"
+			, "Status"
+			, "Churn"
+	  ],
+	  "description": "n/a"
+	}
+}
